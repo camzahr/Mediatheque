@@ -46,7 +46,7 @@ public class LettreRappelTest {
 	@Before
 	public void setUp() throws Exception {
 		cat = new CategorieClient("voisin", 10, 2.0, 3.0, 4.0, false);
-		client = new Client("Asos", "Pierre", "37 quai de grenelle", cat);
+		client = new Client("Camilleri", "Jeremy", "37 quai de grenelle", cat);
 		med = new Mediatheque("myMed");
 		local = new Localisation("Salle1", "A");
 		audio = new Audio("code", local, "Tintin", "Hergé", "1980", new Genre("BD"), "classification");

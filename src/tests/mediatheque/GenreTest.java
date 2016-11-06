@@ -62,7 +62,7 @@ public class GenreTest {
 
     
 
-    @Test//Je ne comprend pas ce que aficherStatistiques est sensée retourner
+    @Test
     public void afficherStatistiques() throws Exception {
     	genre.afficherStatistiques();
     }

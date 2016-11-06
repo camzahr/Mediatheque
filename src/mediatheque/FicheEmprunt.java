@@ -117,7 +117,8 @@ public class FicheEmprunt implements Serializable {
          * de nom et prenom dans la hashtable
          * @param newClient 
          */
-        void modifierClient(Client newClient) {
+        //CORRECTION
+        public void modifierClient(Client newClient) {
                 client = newClient;
         }
 

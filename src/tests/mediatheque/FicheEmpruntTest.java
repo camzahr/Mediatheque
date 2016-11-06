@@ -26,10 +26,12 @@ public class FicheEmpruntTest {
 
     @Before
     public void setUp() throws Exception {
-        this.client = new Client("denne","paul","lille",new CategorieClient("cat",1,2.0,0.5, 0.5, false));
-        Localistion local = new Localisation("a","2");
-        this.doc = new Audio("code", local, "titre", "autor", "annee", new Genre("scifi"), "classification");
-        this.med = new Mediatheque("med");
+        this.client = new Client("Camilleri","Jeremy","Paris",new CategorieClient("voisin",1,2.0,4.0, 5.0, false));
+        Localisation local = new Localisation("Salle 1","A1");
+        this.doc = new Audio("abc", local, "Hey", "Beyonce", "1980", new Genre("rnb"), "All Public");
+        
+        doc.metEmpruntable();
+        this.med = new Mediatheque("myMed");
         this.fiche = new FicheEmprunt(med,client,doc);
     }
 
@@ -45,49 +47,41 @@ public class FicheEmpruntTest {
     }
 
     @Test
-    public void verifier() throws Exception{
-        this.fiche.verifier();
-        assertEquals(true, this.fiche.getDepasse());
-    }
-
-
-    @Ignore
     public void modifierClient() throws Exception {
+    	fiche.modifierClient(new Client("Flo","Anne","Boulbi",new CategorieClient("voisin",1,2.0,4.0, 5.0, false)));
+    	assertEquals("Flo", fiche.getClient().getNom());
     }
 
     @Test
     public void correspond() throws Exception {
-        Localisation local = new Localisation("a","2");
-        Document docTest = new Audio("codeTest", local, "titre2", "autor", "annee", new Genre("scifi"), "classification");
-        assertEquals(false, this.fiche.correspond(this.fiche.getClient(), docTest));
-        Client client2 = new Client("lf","flo","paris",new CategorieClient("2",2,1.0,1.0,1.0,false));
-        assertEquals(false, this.fiche.correspond(client2, this.fiche.getDocument()));
-        assertEquals(true, this.fiche.correspond(this.fiche.getClient(), this.fiche.getDocument()));
-
+        Localisation local = new Localisation("Salle 2","B3");
+        Document docTest = new Audio("123", local, "Yo", "Rihanna", "2000", new Genre("bad"), "classification");
+        assertEquals(false, fiche.correspond(client, docTest));
+        assertEquals(true, fiche.correspond(client, doc));
     }
 
     @Test
     public void restituer() throws Exception {
-        if (this.fiche.getDocument().estEmprunte()){
-            this.fiche.restituer();
-            assertEquals(false, this.fiche.getDocument().estEmprunte());
-            assertEquals(0, this.fiche.getClient().getNbEmpruntsEnCours());
-        }
+        fiche.getDocument().emprunter();
+        fiche.restituer();
+        assertEquals(false, fiche.getDocument().estEmprunte());
+        assertEquals(0, fiche.getClient().getNbEmpruntsEnCours());
+        
     }
 
     @Ignore
     public void getClient() throws Exception {
-
+    	assertEquals(client,fiche.getClient());
     }
 
     @Ignore
     public void getDocument() throws Exception {
-
+    	assertEquals(doc,fiche.getDocument());
     }
 
     @Ignore
     public void getDateEmprunt() throws Exception {
-
+    	
     }
 
     @Ignore
