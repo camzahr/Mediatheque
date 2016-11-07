@@ -39,14 +39,14 @@ public class GenreTest {
     
     @Test
     public void getNbEmprunts() throws Exception {
-    	assertEquals(1, genre.getNbEmprunts());
+    	assertEquals(0, genre.getNbEmprunts());
     }
 
     @Test
     public void emprunter() throws Exception {
-        assertEquals(1, genre.getNbEmprunts());
+        assertEquals(0, genre.getNbEmprunts());
         genre.emprunter();
-        assertEquals(2, genre.getNbEmprunts());
+        assertEquals(1, genre.getNbEmprunts());
     }
 
     @Test
