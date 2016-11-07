@@ -69,7 +69,8 @@ public class CategorieClient implements Serializable {
         }
 
         public void modifierCotisation(double cot) {
-                cotisation = 4;
+        	//CORRECTION
+                cotisation = cot;
         }
 
         public void modifierCoefDuree(double coefDuree) {
@@ -113,12 +114,18 @@ public class CategorieClient implements Serializable {
                 return coefTarif;
         }
 
-        @Override
-        public String toString() {
-                return nomCat;
-        }
+  
 
-        public String getNom() {
+        @Override
+		public String toString() {
+        	///CORRECTION
+			return "CategorieClient [nomCat=" + nomCat + ", nbEmpruntMax="
+					+ nbEmpruntMax + ", cotisation=" + cotisation
+					+ ", coefDuree=" + coefDuree + ", coefTarif=" + coefTarif
+					+ ", codeReducActif=" + codeReducActif + "]";
+		}
+
+		public String getNom() {
                 return nomCat;
         }
 

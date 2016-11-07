@@ -22,7 +22,8 @@ public class AudioTest {
     public void setUp() throws Exception {
         genre = new Genre("Rock");
         loc = new Localisation("salle1", "rayon1");
-        audio = new Audio("abc", loc, "Yellow Submarine", "The Beatles", "2000", genre, "cd");
+        audio = new Audio("poeizf", loc, "Yellow Submarine", "The Beatles", "2000", genre, "cd");
+        audio.metEmpruntable();
     }
 
     @After
@@ -32,19 +33,16 @@ public class AudioTest {
 
     @Test (expected = OperationImpossible.class)
     public void create() throws Exception {
-        Audio audioCurrent = new Audio("abc", loc, "Yellow Submarine", "The Beatles", null, genre, "cd");
+        Audio audioCurrent = new Audio("poiii", loc, "Yellow Submarine", "The Beatles", null, genre, "cd");
     }
 
     @Test
     public void getStatFirst() throws Exception {
-        assertEquals(0, audio.getStat());
+        int stat = audio.getStat();
+        audio.emprunter();
+    	assertEquals(stat+1, audio.getStat());
     }
 
-    @Test
-    public void getStatSecond() throws Exception {
-        audio.emprunter();
-        assertEquals(1, audio.getStat());
-    }
 
     @Test
     public void getClassification() throws Exception {
@@ -52,14 +50,8 @@ public class AudioTest {
     }
 
     @Test
-    public void emprunterFirst() throws Exception {
-        assertEquals(false, audio.emprunter());
-    }
-
-    @Test
-    public void emprunterSecond() throws Exception {
-        audio.metEmpruntable();
-        assertEquals(true, audio.emprunter());
+    public void emprunter() throws Exception {
+        audio.emprunter();
     }
 
     @Test

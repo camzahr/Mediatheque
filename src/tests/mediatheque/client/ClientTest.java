@@ -226,7 +226,7 @@ public class ClientTest {
         assertEquals(1, client1.getNbEmpruntsEnCours());
 
         // emprunte un nombre très elevé, sensé bloquer
-        for (int i=1; i<=10; i++) {
+        for (int i=1; i<=9; i++) {
             client1.emprunter();
         }
         assertEquals(client1.nbMaxEmprunt(), client1.getNbEmpruntsEnCours());
@@ -281,7 +281,7 @@ public class ClientTest {
 
     @Test
     public void nbMaxEmprunt() throws Exception {
-        assertEquals(catClient.getNbEmpruntMax(), client1.nbMaxEmprunt());
+        assertEquals(cClient.getNbEmpruntMax(), client1.nbMaxEmprunt());
     }
 
     @Test
@@ -336,7 +336,8 @@ public class ClientTest {
 
     @Test
     public void getReduc() throws Exception {
-        Client clientCode = new Client("nom", "prenom", "20 blv grenelle", catClient, 5);
+    	cClient.modifierCodeReducActif(true);
+        Client clientCode = new Client("nom", "prenom", "20 blv grenelle", cClient, 5);
         assertEquals(5, clientCode.getReduc());
     }
 

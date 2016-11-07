@@ -115,6 +115,7 @@ public class MediathequeTest {
 
 	    @Test
 	    public void chercherGenre() throws Exception {
+	    	med.ajouterGenre("Genre 1");
 	        assertEquals("Genre 1", med.chercherGenre("Genre 1").getNom());
 	        assertEquals(null, med.chercherGenre("Genre 678"));
 	    }
@@ -145,13 +146,15 @@ public class MediathequeTest {
 	    @Test(expected = OperationImpossible.class)
 	    public void ajouterGenreException() throws Exception {
 	        med.ajouterGenre("Genre 1");
+	        med.ajouterGenre("Genre 1");
 	    }
 
 	    @Test
 	    public void modifierGenre() throws Exception {
-	        med.modifierGenre("Genre 2", "Genre 15");
+	    	med.ajouterGenre("rdn");
+	        med.modifierGenre("rdn", "Genre 15");
 	        assertEquals(new Genre("Genre 15"), med.chercherGenre("Genre 15"));
-	        assertEquals(null, med.chercherGenre("Genre 2"));
+	        assertEquals(null, med.chercherGenre("rdn"));
 	    }
 
 	    @Test
@@ -310,6 +313,7 @@ public class MediathequeTest {
 
 	    @Test
 	    public void ajouterDocument() throws Exception {
+	    	med.ajouterGenre("Genre 1");
 	        Audio audio = new Audio("azerty", new Localisation("Salle 1", "Rayon 1"), "Hey", "Sting", "1975", new Genre("Genre 1"), "class");
 	        med.ajouterDocument(new Audio("azerty", new Localisation("Salle 1", "Rayon 1"), "Hey", "Sting", "1975", new Genre("Genre 1"), "class") );
 	        assertEquals(audio, med.chercherDocument("azerty"));

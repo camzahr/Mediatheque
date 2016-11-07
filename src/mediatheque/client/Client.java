@@ -3,6 +3,7 @@ package mediatheque.client;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Vector;
+
 import mediatheque.*;
 import util.Datutil;
 
@@ -186,7 +187,8 @@ public class Client implements Serializable {
          * @return nombre d'emprunts en retard
          */
         public int getNbEmpruntsEnRetard() {
-                return 0;
+            //CORRECTIO     
+        	return nbEmpruntsDepasses;
         }
 
         /**
@@ -273,13 +275,16 @@ public class Client implements Serializable {
          * <TT>emprunter</TT> teste si le client peut emprunter le
          * document et leve une exception AssertionErrosi ce n'est pas
          * le cas
+         * @throws OperationImpossible 
          * @see #peutEmprunter()
          */
-        public void emprunter(FicheEmprunt emprunt) {
-                boolean bool = peutEmprunter();
-                lesEmprunts.add(emprunt);
-                nbEmpruntsEffectues++;
-                nbEmpruntsEnCours++;
+        public void emprunter(FicheEmprunt emprunt) throws OperationImpossible {
+                //CORRECTION
+                assert peutEmprunter();
+            	lesEmprunts.add(emprunt);
+            	nbEmpruntsEffectues++;
+            	nbEmpruntsEnCours++;
+            
         }
 
         /**
@@ -411,7 +416,8 @@ public class Client implements Serializable {
          *    @return nombre d'emprunts maximal
          */
         public int nbMaxEmprunt() {
-                return 2; 
+        	//CORRECTION
+                return catClient.getNbEmpruntMax(); 
         }
 
         /**

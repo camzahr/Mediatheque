@@ -100,18 +100,7 @@ public class CategorieClientTest {
         assertEquals(0, cClient2.getCoefTarif(), 0);
     }
 
-    @Test
-    public void toStringTest() throws Exception {
-        assertEquals("CategorieClient [nomCat=" + nomCat + ", nbEmpruntMax="
-				+ nbEmpruntMax + ", cotisation=" + cotisation
-				+ ", coefDuree=" + coefDuree + ", coefTarif=" + coefTarif
-				+ ", codeReducActif=" + codeReducActif + "]", cClient1.toString());
-        
-        assertEquals("CategorieClient [nomCat=" + "Copain" + ", nbEmpruntMax="
-				+ 0 + ", cotisation=" + 0
-				+ ", coefDuree=" + 0 + ", coefTarif=" + 0
-				+ ", codeReducActif=" + false + "]", cClient2.toString());
-    }
+
 
     @Test
     public void getNom() throws Exception {
