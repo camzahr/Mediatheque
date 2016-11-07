@@ -22,11 +22,13 @@ public class FicheEmpruntTest {
     private Audio doc;
     private Mediatheque med;
     private FicheEmprunt fiche;
+    private CategorieClient cat;
 
 
     @Before
     public void setUp() throws Exception {
-        this.client = new Client("Camilleri","Jeremy","Paris",new CategorieClient("voisin",1,2.0,4.0, 5.0, false));
+    	cat = new CategorieClient("voisin",1,2.0,4.0, 5.0, false);
+        this.client = new Client("Camilleri","Jeremy","Paris",cat);
         Localisation local = new Localisation("Salle 1","A1");
         this.doc = new Audio("abc", local, "Hey", "Beyonce", "1980", new Genre("rnb"), "All Public");
         
@@ -62,7 +64,6 @@ public class FicheEmpruntTest {
 
     @Test
     public void restituer() throws Exception {
-        fiche.getDocument().emprunter();
         fiche.restituer();
         assertEquals(false, fiche.getDocument().estEmprunte());
         assertEquals(0, fiche.getClient().getNbEmpruntsEnCours());
@@ -106,13 +107,15 @@ public class FicheEmpruntTest {
 
     @Test(timeout = 1000)
     public void changementCategorie() throws Exception {
-        
+    	fiche.getClient().setCategorie(new CategorieClient("Cat 2",2,5.0,7.0, 15.0, false));
+        assertEquals(false, fiche.changementCategorie());
+        assertNotEquals(cat, fiche.getClient().getCategorie());
 
     }
 
-    @Ignore
+    @Test
     public void afficherStatistiques() throws Exception {
-
+    	fiche.afficherStatistiques();
     }
 
 }

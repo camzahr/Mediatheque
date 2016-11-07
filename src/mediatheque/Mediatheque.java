@@ -95,7 +95,8 @@ public final class Mediatheque implements Serializable {
                         System.out.println("\t" + nom);
                 }
                 Genre g = chercherGenre(nom);
-                if (g != null) {
+                //CORRECTION
+                if (g == null) {
                         throw new OperationImpossible("Genre " + nom + " inexistant");
                 } else {
                         if (existeDocument(g)) {
@@ -131,7 +132,8 @@ public final class Mediatheque implements Serializable {
          */
         public void modifierGenre(String old, String neuf) throws OperationImpossible {
                 Genre g = chercherGenre(old);
-                if (g != null) {
+                //CORRECTION
+                if (g == null) {
                         throw new OperationImpossible("Genre \""
                                         + old + "\" inexistant");
                 } else {
@@ -173,7 +175,8 @@ public final class Mediatheque implements Serializable {
                         System.out.println("Mediatheque: suppression d'une localisation.");
                         System.out.println("\t" + salle + "\t" + rayon);
                 }
-                Localisation l = chercherLocalisation(rayon, salle);
+                //CORRECTION
+                Localisation l = chercherLocalisation(salle, rayon);
                 if (l == null){
                         throw new OperationImpossible("Localisation " + salle + " " +
                                         rayon + " inexistant");
@@ -275,7 +278,8 @@ public final class Mediatheque implements Serializable {
                 CategorieClient searched = new CategorieClient(catName);
                 int index = lesCatsClient.indexOf(searched);
                 if (index >= 0) {
-                        return lesCatsClient.elementAt(index+1);
+                	//CORRECTION
+                        return lesCatsClient.elementAt(index);
                 } else {
                         return null;
                 }
@@ -731,7 +735,8 @@ public final class Mediatheque implements Serializable {
          * @return double tarif pour ce client
          * @exception OperationImpossible en cas d'erreur (voir ci-dessus)
          */
-        private double inscrire(String nom, String prenom, String adresse, CategorieClient cat, int code) throws OperationImpossible {
+        //CORRECTION
+        public double inscrire(String nom, String prenom, String adresse, CategorieClient cat, int code) throws OperationImpossible {
 
                 double tarif = 0.0;
                 if(debug)
@@ -811,6 +816,10 @@ public final class Mediatheque implements Serializable {
                         lesClients.put(newHash, client);
                 }
                 CategorieClient catcli = chercherCatClient(catnom);
+                //CORRECTION
+                if (catcli == null){
+                    throw new OperationImpossible("CatClient" + catnom + "n'existe pas");
+                }
                 if (!catcli.equals(client.getCategorie())) {
                         if (catcli.getCodeReducUtilise()) {
                                 client.setCategorie(catcli, code);
@@ -989,27 +998,27 @@ public final class Mediatheque implements Serializable {
         }
 
         public final boolean saveToFile() {
-                FileOutputStream fout;
+            FileOutputStream fout;
 
-                try {
-                        fout = new FileOutputStream(nom + ".data");
-                } catch (FileNotFoundException fe) {
-                        System.out.println(fe);
-                        return false;
-                }
-                ObjectOutputStream oos;
+            try {
+                    fout = new FileOutputStream(nom + ".data");
+            } catch (FileNotFoundException fe) {
+                    System.out.println(fe);
+                    return false;
+            }
+            ObjectOutputStream oos;
 
-                try {
-                        oos = new ObjectOutputStream(fout);
-                        oos.writeObject(this);
-                        oos.close();
-                        fout.close();
-                } catch (IOException ioe) {
-                        System.out.println(ioe);
-                        System.out.println("Error writing mediatheque data");
-                        return false;
-                }
-                return true;
-        }
+            try {
+                    oos = new ObjectOutputStream(fout);
+                    oos.writeObject(this);
+                    oos.close();
+                    fout.close();
+            } catch (IOException ioe) {
+                    System.out.println(ioe);
+                    System.out.println("Error writing mediatheque data");
+                    return false;
+            }
+            return true;
+    }
 }
 

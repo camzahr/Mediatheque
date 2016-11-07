@@ -100,7 +100,8 @@ public class Client implements Serializable {
         public Client(String nom, String prenom, String adresse, CategorieClient catClient, int code)
                         throws OperationImpossible {
                 initAttr(nom, prenom, adresse, catClient);
-                if (catClient.getCodeReducUtilise()) {
+                //CORRECTION
+                if (!catClient.getCodeReducUtilise()) {
                         throw new OperationImpossible("Call with client type " + this.catClient.getNom() + " and reduction code");
                 }
                 this.codeReduction = code;

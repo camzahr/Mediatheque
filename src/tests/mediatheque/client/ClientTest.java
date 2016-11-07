@@ -109,11 +109,11 @@ public class ClientTest {
 		cClient = new CategorieClient("voisin",10,10.0,2.0,3.0, false);
 		
 		client1 = new Client(nom,prenom,adresse,catClient);
-		client1.setCateorie(cClient);
+		client1.setCategorie(cClient);
 		client2 = new Client("Cameron", "James");
 		
 		l.metEmpruntable();
-		emprunt = new FicheEmprunt(m, client1, l);
+		//emprunt = new FicheEmprunt(m, client1, l);
 		
 		
 		
@@ -225,8 +225,8 @@ public class ClientTest {
         client1.emprunter();
         assertEquals(1, client1.getNbEmpruntsEnCours());
 
-        // emprunte le nombre max + 1
-        for (int i=1; i<=client1.nbMaxEmprunt(); i++) {
+        // emprunte un nombre très elevé, sensé bloquer
+        for (int i=1; i<=10; i++) {
             client1.emprunter();
         }
         assertEquals(client1.nbMaxEmprunt(), client1.getNbEmpruntsEnCours());
@@ -240,40 +240,19 @@ public class ClientTest {
 
     @Test
     public void marquer() throws Exception {
-        client1.emprunter();
+    	emprunt = new FicheEmprunt(m, client1, l);
         client1.marquer();
         assertEquals(1,client1.getNbEmpruntsEnRetard());
     }
 
     @Test
-    public void restituer() throws Exception {
-        assertEquals(0, client1.getNbEmpruntsEnCours());
-        client1.emprunter();
-        assertEquals(1, client1.getNbEmpruntsEnCours());
-        client1.restituer(false);
-        assertEquals(0, client1.getNbEmpruntsEnCours());
-    }
-
-    @Test
     public void restituer1() throws Exception {
         assertEquals(0, client1.getNbEmpruntsEnCours());
-        client1.emprunter(emprunt);
+        emprunt = new FicheEmprunt(m, client1, l);
         assertEquals(1, client1.getNbEmpruntsEnCours());
         client1.restituer(emprunt);
         assertEquals(0, client1.getNbEmpruntsEnCours());
     }
-
-    @Test (expected = OperationImpossible.class)
-    public void restituerExeption() throws Exception {
-        client1.restituer(false);
-    }
-
-    @Test (expected = OperationImpossible.class)
-    public void restituerExeption1() throws Exception {
-        client1.emprunter();
-        client1.restituer(true);
-    }
-
 
     @Test
     public void afficherStatistiques() throws Exception {
@@ -297,7 +276,7 @@ public class ClientTest {
 
     @Test
     public void sommeDue() throws Exception {
-        assertEquals(20.00, client1.sommeDue(10.00), 0);
+        assertEquals(30.00, client1.sommeDue(10.00), 0);
     }
 
     @Test
