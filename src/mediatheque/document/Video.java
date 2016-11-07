@@ -55,7 +55,8 @@ public final class Video extends Document {
                         String auteur, String annee, Genre genre, int dureeFilm,
                         String mentionLegale) throws OperationImpossible, InvariantBroken{
                 super(code, localisation, titre, auteur, annee, genre);
-                if (dureeFilm == 0 || mentionLegale == null) {
+                //CORRECTION
+                if (dureeFilm < 0 || mentionLegale == null) {
                         throw new OperationImpossible("Ctr Video dureeFile = " + dureeFilm
                                         + " mentionLegale = " + mentionLegale);
                 }
@@ -124,6 +125,7 @@ public final class Video extends Document {
          *  @return if document in safe state(i.e.dureeFilm > 0)
          */
         public boolean invariantVideo() {
-                return dureeFilm < 0 && super.invariant();
+        	//CORRECTION
+                return dureeFilm > 0 && super.invariant();
         }
 }
